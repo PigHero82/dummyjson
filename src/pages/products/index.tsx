@@ -3,6 +3,9 @@ import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
+// API
+import { api } from '@/services'
+
 // Component
 import { Layout } from '@/components'
 
@@ -10,11 +13,12 @@ import { Layout } from '@/components'
 import { Field, Form, Formik } from 'formik'
 
 // Third-Party Library
-import { ArrowForwardOutline, PencilOutline } from 'react-ionicons'
+import { ArrowForwardOutline, PencilOutline, TrashBinOutline } from 'react-ionicons'
 import { motion } from "framer-motion"
 
 // Utility
 import { isDiscounted } from '@/utilities'
+import { toast } from 'react-hot-toast'
 
 export default function Product(props: {
   data: {
@@ -117,6 +121,51 @@ export default function Product(props: {
                                   <PencilOutline />
                                 </div>
                               </Link>
+                            </button>
+
+                            <button
+                              type="button"
+                              title="Edit"
+                              className="btn btn-sm btn-square btn-error"
+                              onClick={() => {
+                                toast((t) => (
+                                  <div className='flex items-center gap-x-3'>
+                                    <div>Are you sure?</div>
+
+                                    <div className='flex'>
+                                      <button
+                                        type='button'
+                                        className='btn btn-sm btn-primary rounded-none'
+                                        onClick={() => {
+                                          toast.dismiss(t.id)
+
+                                          toast.promise(
+                                            api.delete(`/products/${val.id}`),
+                                            {
+                                              loading: 'Processing...',
+                                              success: () => {
+                                                window.location.reload()
+                                                return "Success"
+                                              },
+                                              error: "Failed",
+                                            }
+                                          )
+                                        }}
+                                      >
+                                        Confirm
+                                      </button>
+
+                                      <button type='button' className='btn btn-sm btn-red-500 rounded-none' onClick={() => toast.dismiss(t.id)}>
+                                        Cancel
+                                      </button>
+                                    </div>
+                                  </div>
+                                ))
+                              }}
+                            >
+                              <div className='group-focus:hidden'>
+                                <TrashBinOutline />
+                              </div>
                             </button>
                           </div>
                         </div>
