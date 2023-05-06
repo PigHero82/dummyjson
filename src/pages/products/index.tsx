@@ -106,17 +106,17 @@ export default function Product(props: {
 
               return (
                 <div key={index} className='group w-56 flex flex-col justify-stretch'>
-                  <section className='relative'>
-                    <img src={val.thumbnail} alt={val.title} className="h-64 object-cover" />
+                      <section className='relative'>
+                        <img src={val.thumbnail} alt={val.title} className="h-64 object-cover" />
 
-                    <div className='group-hover:transition-all invisible group-hover:visible absolute bottom-0 w-full p-3'>
-                      <Link key={index} href={`/products/${val.id}`}>
-                        <button type='button' className="w-full btn btn-light dark:btn-dark gap-2 focus:loading">
-                          Show Detail <ArrowForwardOutline color='#00000' />
-                        </button>
-                      </Link>
-                    </div>
-                  </section>
+                        <div className='group-hover:transition-all invisible group-hover:visible absolute bottom-0 w-full p-3'>
+                          <Link key={index} href={`/products/detail/${val.id}`}>
+                            <button type='button' className="w-full btn btn-light dark:btn-dark gap-2 focus:loading">
+                              Show Detail <ArrowForwardOutline color='#00000' />
+                            </button>
+                          </Link>
+                        </div>
+                      </section>
 
                   <div className='flex justify-between gap-x-5'>
                     <h3>{val.title}</h3>
