@@ -10,7 +10,7 @@ import { Layout } from '@/components'
 import { Field, Form, Formik } from 'formik'
 
 // Third-Party Library
-import { ArrowForwardOutline } from 'react-ionicons'
+import { ArrowForwardOutline, PencilOutline } from 'react-ionicons'
 import { motion } from "framer-motion"
 
 // Utility
@@ -108,6 +108,18 @@ export default function Product(props: {
                 <div key={index} className='group w-56 flex flex-col justify-stretch'>
                       <section className='relative'>
                         <img src={val.thumbnail} alt={val.title} className="h-64 object-cover" />
+
+                        <div className='group-hover:transition-all invisible group-hover:visible absolute top-0 right-0 m-2'>
+                          <div className='btn-group'>
+                            <button type="button" title="Edit" className="group btn btn-sm btn-square btn-warning focus:loading">
+                              <Link href={`/products/edit/${val.id}`}>
+                                <div className='group-focus:hidden'>
+                                  <PencilOutline />
+                                </div>
+                              </Link>
+                            </button>
+                          </div>
+                        </div>
 
                         <div className='group-hover:transition-all invisible group-hover:visible absolute bottom-0 w-full p-3'>
                           <Link key={index} href={`/products/detail/${val.id}`}>
