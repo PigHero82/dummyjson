@@ -1,11 +1,22 @@
 // Component
-import { Input } from "@/components"
+import { Input, Select } from "@/components"
+import { useCategory } from "@/viewModel/product"
 
 // Form
 import { Field, FieldProps, Form, useFormikContext } from "formik"
 
 export function FormSection() {
+  // Hooks
+  const { category, loading } = useCategory()
   const { isSubmitting } = useFormikContext()
+
+  // Variables
+  const data = category.map(val => {
+    return {
+      label: val,
+      value: val
+    }
+  })
 
   return (
     <Form>
@@ -34,9 +45,11 @@ export function FormSection() {
       <div className="grid md:grid-cols-2 gap-x-2">
         <Field name="category">
           {({ field, meta }: FieldProps) => (
-            <Input
-              label="Category"
+            <Select
+              data={data}
               error={meta.touched && meta.error && meta.error}
+              label="Category"
+              loading={loading}
               {...field}
             />
           )}
