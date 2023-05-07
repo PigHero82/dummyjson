@@ -18,12 +18,15 @@ import { Layout as ProductLayout } from '@/components/products'
 import { Field, Form, Formik } from 'formik'
 
 // Third-Party Library
-import { ArrowForwardOutline, BagRemoveOutline, PencilOutline, TrashBinOutline } from 'react-ionicons'
+import { ArrowForwardOutline, BagRemoveOutline, CheckmarkOutline, PencilOutline, TrashBinOutline } from 'react-ionicons'
 import { motion } from "framer-motion"
 
 // Utility
 import { isDiscounted } from '@/utilities'
 import { toast } from 'react-hot-toast'
+
+// View Model
+import { useCategory } from '@/viewModel/product'
 
 export default function Product(props: {
   data: {
@@ -50,9 +53,11 @@ export default function Product(props: {
 
   // Variables
   const searchQuery: {
+    category: string | null
     page: string | number | null
     search: string | null
   } = {
+    category: searchParams.get('category'),
     page: searchParams.get('page'),
     search: searchParams.get('search')
   }
@@ -61,6 +66,47 @@ export default function Product(props: {
     search: any
   } = {
     search: searchQuery.search
+  }
+
+  const Category = (): JSX.Element => {
+    const { category, loading } = useCategory()
+
+    if (loading) {
+      return (
+        <div className='animate-pulse flex justify-center space-x-3'>
+          {[...Array(3)].map((_, index) => (
+            <button disabled key={index} type='button' title='Loading' className='btn btn-outline'>
+              <div className="h-2 w-20 bg-slate-200 rounded"></div>
+            </button>
+          ))}
+        </div>
+      )
+    }
+
+    return (
+      <div className='flex gap-x-3 overflow-x-auto'>
+        {category.map((val, index) => (
+          <button
+            key={index}
+            type='button'
+            className='btn btn-outline'
+            onClick={() => {
+              // @ts-ignore
+              router.push({
+                pathname: '/products',
+                query: {
+                  ...searchQuery,
+                  category: val,
+                  search: null
+                }
+              })
+            }}
+          >
+            {searchQuery.category === val && <CheckmarkOutline />} {val}
+          </button>
+        ))}
+      </div>
+    )
   }
 
   return (
@@ -89,6 +135,7 @@ export default function Product(props: {
                       pathname: '/products',
                       query: {
                         ...searchQuery,
+                        category: null,
                         search: values.search
                       }
                     })
@@ -110,6 +157,10 @@ export default function Product(props: {
                     </Form>
                   )}
                 </Formik>
+              </section>
+
+              <section className='mb-5'>
+                <Category />
               </section>
 
               {props.data.products.length === 0 ? (
@@ -256,7 +307,7 @@ export default function Product(props: {
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { query }: { query: any } = context
   
-  const res = await fetch(`${process.env.API_URL}/products${query.search ? '/search' : ''}?` + new URLSearchParams({
+  const res = await fetch(`${process.env.API_URL}/products${query.search ? '/search' : query.category ? `/category/${query.category}` : ""}?` + new URLSearchParams({
     ...query,
     limit: query.limit ?? 20,
     select: "discountPercentage,id,price,thumbnail,title",
