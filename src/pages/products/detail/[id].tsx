@@ -1,21 +1,29 @@
 // React
 import { Fragment } from "react"
 
+// Next
+import Head from "next/head"
+import { useRouter } from "next/navigation"
+
 // Component
 import { Layout } from "@/components"
 
+// Form
+import { Form, Formik } from "formik"
+import * as yup from "yup"
+
 // Third-Party Library
+import { AddOutline, RemoveOutline, CartOutline } from "react-ionicons"
 // @ts-ignore
 import StarRatings from "react-star-ratings"
-import { AddOutline, RemoveOutline, CartOutline } from "react-ionicons"
 import { motion } from 'framer-motion'
+import { toast } from "react-hot-toast"
 
 // Utilities
 import { isDiscounted } from "@/utilities"
 
-// View Model
-import { useQty } from "@/viewModel/product"
-import Head from "next/head"
+// API
+import { api } from "@/services"
 
 export default function ProductDetail(props: {
   data: {
@@ -37,32 +45,8 @@ export default function ProductDetail(props: {
   const discounted = isDiscounted(discountPercentage)
   const price = props.data.price
 
-  const Qty = (props: {
-    stock?: number
-  }) => {
-    // Hooks
-    const { qty, decrease, increase } = useQty({ max: props.stock, min: 1 })
-
-    return (
-      <Fragment>
-        <div className="prose">
-          <small>Stock: {props.stock}</small>
-        </div>
-
-        <section className="flex items-center gap-x-3">
-          <button type="button" title="decrease">
-            <RemoveOutline color={'#00000'} onClick={decrease} />
-          </button>
-
-          <h2 className="select-none m-0">{qty}</h2>
-
-          <button type="button" title="increase">
-            <AddOutline color={'#00000'} onClick={increase} />
-          </button>
-        </section>
-      </Fragment>
-    )
-  }
+  // Hooks
+  const router = useRouter()
 
   return (
     <Fragment>
@@ -134,12 +118,81 @@ export default function ProductDetail(props: {
                 )}
 
                 <h2 className="mt-0">${(price - (price * discountPercentage / 100)).toFixed(2)}</h2>
-                <Qty stock={props.data.stock} />
-                
-                <button type="button" className="w-full mt-5 btn btn-disabled btn-primary gap-2">
-                  <CartOutline color="#ffffff" />
-                  Buy Now
-                </button>
+
+                <div className="prose">
+                  <small>Stock: {props.data.stock}</small>
+                </div>
+                <Formik
+                  initialValues={{
+                    userId: 1,
+                    quantity: 1
+                  }}
+                  validationSchema={yup.object().shape({
+                    quantity: yup.number().label("Quantity").min(1).max(props.data.stock)
+                  })}
+                  onSubmit={async values => {
+                    return toast.promise(
+                      api.post("/carts/add", {
+                        userId: values.userId,
+                        products: [
+                          {
+                            id: props.data.id,
+                            quantity: values.quantity
+                          }
+                        ]
+                      }),
+                      {
+                        loading: 'Processing...',
+                        success: () => {
+                          router.push('/products')
+                          return "Success"
+                        },
+                        error: "Failed",
+                      }
+                    )
+                  }}
+                >
+                  {({ errors, isSubmitting, touched, values, setFieldValue }) => {
+                    const decrease = () => {
+                      setFieldValue("quantity", values.quantity - 1, true)
+                    }
+
+                    const increase = () => {
+                      setFieldValue("quantity", values.quantity + 1, true)
+                    }
+
+                    return (
+                      <Form>
+                        <section>
+                          <div className="flex items-center gap-x-3">
+                            <button type="button" title="decrease">
+                              <RemoveOutline color={'#00000'} onClick={decrease} />
+                            </button>
+
+                            <h2 className="select-none m-0">{values.quantity}</h2>
+
+                            <button type="button" title="increase">
+                              <AddOutline color={'#00000'} onClick={increase} />
+                            </button>
+                          </div>
+
+                          {errors.quantity && touched.quantity && <small className="text-red-500">{errors.quantity}</small>}
+                        </section>
+
+                        <section>
+                          <button type="submit" className={`w-full mt-5 btn btn-primary gap-2 ${isSubmitting && "loading"}`}>
+                            <CartOutline color="#ffffff" />
+                            Buy Now
+                          </button>
+
+                          <div className="prose">
+                            <small>Using "add a cart" API, <span className="text-red-500">Data will not change in the server</span></small>
+                          </div>
+                        </section>
+                      </Form>
+                    )
+                  }}
+                </Formik>
               </article>
             </section>
           </div>
