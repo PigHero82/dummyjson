@@ -4,7 +4,7 @@ export function Input(props: {
   leftGroup?: string | JSX.Element
   placeholder?: string
   rightGroup?: string | JSX.Element
-  type?: string
+  type?: 'number' | 'text' | 'textarea'
   value?: string
 }) {
   return (
