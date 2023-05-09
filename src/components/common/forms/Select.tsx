@@ -6,6 +6,11 @@ export function Select(props: {
   error?: string | false
   label?: string
   loading?: boolean
+  onChange: (e : {
+    target: {
+      value: number | string
+    }
+  }) => void
   placeholder?: string
   value?: string
 }) {
@@ -20,7 +25,7 @@ export function Select(props: {
           <option>Loading...</option>
         </select>
       ) : (
-        <select className="select select-bordered w-full" defaultValue={props.value} {...props}>
+        <select className="select select-bordered w-full" defaultValue={props.value} {...props} onChange={props.onChange}>
           <option value="" hidden>{props.placeholder ?? "Select..."}</option>
           {props.data.map((val, index) => <option key={index} value={val.value}>{val.label}</option>)}
         </select>
