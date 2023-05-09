@@ -18,11 +18,6 @@ export function useCategory() {
     }).finally(() => {
       setLoading(false)
     })
-    
-    return () => {
-      setCategory([])
-      setLoading(false)
-    }
   }, [])
 
   return { category, loading }
