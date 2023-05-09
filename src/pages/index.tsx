@@ -35,7 +35,7 @@ export default function Home() {
             <div className="my-5 flex flex-wrap justify-center items-stretch gap-5">
               <Link href='/products'>
                 <button type='button' className="btn focus:loading">
-                  Products
+                  Products + Carts
                 </button>
               </Link>
             </div>

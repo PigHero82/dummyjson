@@ -16,8 +16,7 @@ Project for learn [Next.js](https://nextjs.org/) and many more libraries
 
 Many APIs from DummyJSON will be here soon
 
-- [x]  [Products](https://dummyjson.com/products)
-- [ ]  [Carts](https://dummyjson.com/carts)
+- [x]  [Products](https://dummyjson.com/products) + [Carts](https://dummyjson.com/carts)
 - [ ]  [Posts](https://dummyjson.com/posts) + [Comments](https://dummyjson.com/comments)
 - [ ]  [Quotes](https://dummyjson.com/quotes)
 - [ ]  [Todos](https://dummyjson.com/todos)
