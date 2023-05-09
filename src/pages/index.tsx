@@ -25,7 +25,7 @@ export default function Home() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="container mx-auto h-[90vh] flex flex-col">
+          <div className="container h-[90vh] flex flex-col">
             <div className="my-auto">
               <div className="text-center md:text-8xl sm:text-7xl text-5xl">
                 dummyJSON

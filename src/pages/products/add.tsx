@@ -32,7 +32,7 @@ export default function AddProduct() {
       </Head>
 
       <Layout>
-        <main className="container mx-auto">
+        <main className="container">
           <section className="flex justify-between items-center">
             <div className="prose">
               <h2 className="m-0">Add Product</h2>

@@ -85,7 +85,7 @@ export default function ProductDetail(props: {
               </div>
             </section>
 
-            <section className="col-span-2 container px-10 mx-auto my-auto">
+            <section className="col-span-2 container px-10 my-auto">
               <section className="flex items-center mb-3">
                 <div className="z-10 -mr-2 bg-gold w-10 h-10 rounded-full p-1 flex justify-center items-center font-bold dark:text-black">
                   {props.data.rating}

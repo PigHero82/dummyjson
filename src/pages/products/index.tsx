@@ -268,7 +268,7 @@ export default function Product() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <main className='container mx-auto'>
+            <main className='container'>
               <section className='mb-5'>
                 <Formik
                   initialValues={initialValues}
