@@ -186,7 +186,7 @@ export default function ProductDetail(props: {
                           </button>
 
                           <div className="prose">
-                            <small>Using "add a cart" API, <span className="text-red-500">Data will not change in the server</span></small>
+                            <small>Using &quot;add a cart&quot; API, <span className="text-red-500">Data will not change in the server</span></small>
                           </div>
                         </section>
                       </Form>

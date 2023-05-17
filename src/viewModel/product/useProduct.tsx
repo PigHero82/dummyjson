@@ -54,6 +54,8 @@ export function useProduct(props: {
     }).finally(() => {
       setLoading(false)
     })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return { loading, product }
