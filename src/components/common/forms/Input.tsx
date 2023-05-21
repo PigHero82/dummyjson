@@ -1,4 +1,5 @@
 export function Input(props: {
+  className?: string
   error?: string | false
   label?: string
   leftGroup?: string | JSX.Element
@@ -9,9 +10,11 @@ export function Input(props: {
 }) {
   return (
     <div className="form-control w-full">
-      <label className="label">
-        <span className="label-text">{props.label}</span>
-      </label>
+      {props.label && (
+        <label className="label">
+          <span className="label-text">{props.label}</span>
+        </label>
+      )}
 
       <div className={(props.leftGroup || props.rightGroup) && "input-group"}>
         {props.leftGroup && (
@@ -20,18 +23,18 @@ export function Input(props: {
 
         {props.type === "textarea" ? (
           <textarea
-            className={`textarea textarea-bordered w-full ${props.error && "input-error"}`}
             defaultValue={props.value}
             placeholder={props.placeholder}
             {...props}
+            className={`textarea textarea-bordered w-full ${props.error && "input-error"} ${props.className}`}
           />
         ) : (
           <input
             type={props.type ?? "text"}
-            className={`input input-bordered w-full ${props.error && "input-error"}`}
             defaultValue={props.value}
             placeholder={props.placeholder}
             {...props}
+            className={`input input-bordered w-full ${props.error && "input-error"} ${props.className}`}
           />
         )}
 
