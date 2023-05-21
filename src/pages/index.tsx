@@ -38,6 +38,12 @@ export default function Home() {
                   Products + Carts
                 </button>
               </Link>
+
+              <Link href='/posts'>
+                <button type='button' className="btn focus:loading">
+                  Posts + Comments
+                </button>
+              </Link>
             </div>
           </div>
         </motion.div>
