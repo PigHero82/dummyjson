@@ -12,6 +12,21 @@ import { Layout } from "@/components"
 import { motion } from "framer-motion"
 
 export default function Home() {
+  // Variables
+  const menu: {
+    label: string
+    link: string
+  }[] = [
+    {
+      label: "Products + Carts",
+      link: "/products"
+    },
+    {
+      label: "Quotes",
+      link: "/quotes"
+    }
+  ]
+
   return (
     <Fragment>
       <Head>
@@ -33,11 +48,13 @@ export default function Home() {
             </div>
 
             <div className="my-5 flex flex-wrap justify-center items-stretch gap-5">
-              <Link href='/products'>
-                <button type='button' className="btn focus:loading">
-                  Products + Carts
-                </button>
-              </Link>
+              {menu.map((val, index) => (
+                <Link key={index} href={val.link}>
+                  <button type='button' className="btn focus:loading">
+                    {val.label}
+                  </button>
+                </Link>
+              ))}
             </div>
           </div>
         </motion.div>
