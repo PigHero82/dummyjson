@@ -5,6 +5,9 @@ import Head from "next/head"
 import { Layout } from "@/components"
 import { Card } from "@/components/quotes"
 
+// Icon
+import { BsQuote } from "react-icons/bs"
+
 // Third-Party Library
 import { motion } from "framer-motion"
 import { Typewriter } from "react-simple-typewriter"
@@ -54,15 +57,19 @@ export default function QuoteDetail(props: {
             }}
           >
             <div className="my-auto container text-center text-white">
-              <h1 className="mb-5 text-[1.9rem]">
-                <Typewriter
-                  delaySpeed={1000}
-                  deleteSpeed={25}
-                  loop={1}
-                  typeSpeed={75}
-                  words={[props.data.quote]}
-                />
-              </h1>
+              <section className="mb-8">
+                <BsQuote className="mx-auto text-2xl" />
+
+                <h1 className="text-[1.9rem]">
+                  <Typewriter
+                    delaySpeed={1000}
+                    deleteSpeed={25}
+                    loop={1}
+                    typeSpeed={75}
+                    words={[props.data.quote]}
+                  />
+                </h1>
+              </section>
 
               <h5 className="text-[14px] uppercase">{props.data.author}</h5>
             </div>

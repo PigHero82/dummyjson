@@ -13,10 +13,10 @@ import { useQuote, useRandomQuote } from "@/viewModel/quotes"
 
 // Third-Party Library
 import { motion } from "framer-motion"
-import { Typewriter } from "react-simple-typewriter"
 
 // Type
 import { Quote } from "@/types/quotes"
+import { BsQuote } from 'react-icons/bs'
 
 export default function Quote(): JSX.Element {
   const Quotes = (): JSX.Element => {
@@ -71,15 +71,11 @@ export default function Quote(): JSX.Element {
           }}
         >
           <div className="my-auto container text-center text-white">
-            <h1 className="mb-5 text-[1.9rem]">
-              <Typewriter
-                delaySpeed={1000}
-                deleteSpeed={25}
-                loop={1}
-                typeSpeed={75}
-                words={[quote.quote]}
-              />
-            </h1>
+            <section className="mb-8">
+              <BsQuote className="mx-auto text-2xl" />
+              <h1 className="text-[1.9rem]">{quote.quote}</h1>
+            </section>
+
             <h5 className="text-[14px] uppercase">{quote?.author}</h5>
           </div>
         </div>
