@@ -8,8 +8,8 @@ import Link from "next/link"
 import Drawer from "react-modern-drawer"
 import 'react-modern-drawer/dist/index.css'
 
-// Third-Party Library
-import { AddOutline, CartOutline, CloseOutline } from "react-ionicons"
+// Icon
+import { IoAddOutline, IoCartOutline, IoCloseOutline } from "react-icons/io5"
 
 // View Model
 import { useCart } from "@/viewModel/cart"
@@ -68,7 +68,7 @@ export function Layout(props: PropsWithChildren<{}>) {
     return (
       <Fragment>
         <button type="button" title="Cart" className="h-12 w-12 btn btn-success rounded-full" onClick={toggleDrawer}>
-          <CartOutline color='white' />
+          <IoCartOutline className="text-white" size={30} />
         </button>
 
         <Drawer
@@ -81,7 +81,7 @@ export function Layout(props: PropsWithChildren<{}>) {
             <div className="text-lg font-bold">Your Cart</div>
 
             <button type="button" title="Close" onClick={toggleDrawer}>
-              <CloseOutline />
+              <IoCloseOutline size={30} />
             </button>
           </section>
 
@@ -106,7 +106,7 @@ export function Layout(props: PropsWithChildren<{}>) {
 
           <Link href='/products/add'>
             <div className="h-12 w-12 btn btn-primary rounded-full focus:loading">
-              <AddOutline color='white' />
+              <IoAddOutline className="text-white" size={30} />
             </div>
           </Link>
         </div>

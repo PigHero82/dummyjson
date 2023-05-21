@@ -12,8 +12,10 @@ import { Layout } from "@/components"
 import { Form, Formik } from "formik"
 import * as yup from "yup"
 
+// Icon
+import { IoAddOutline, IoRemoveOutline, IoCartOutline } from "react-icons/io5"
+
 // Third-Party Library
-import { AddOutline, RemoveOutline, CartOutline } from "react-ionicons"
 // @ts-ignore
 import StarRatings from "react-star-ratings"
 import { motion } from 'framer-motion'
@@ -166,13 +168,13 @@ export default function ProductDetail(props: {
                         <section>
                           <div className="flex items-center gap-x-3">
                             <button type="button" title="decrease">
-                              <RemoveOutline color={'#00000'} onClick={decrease} />
+                              <IoRemoveOutline color={'#00000'} onClick={decrease} />
                             </button>
 
                             <h2 className="select-none m-0">{values.quantity}</h2>
 
                             <button type="button" title="increase">
-                              <AddOutline color={'#00000'} onClick={increase} />
+                              <IoAddOutline color={'#00000'} onClick={increase} />
                             </button>
                           </div>
 
@@ -181,7 +183,7 @@ export default function ProductDetail(props: {
 
                         <section>
                           <button type="submit" className={`w-full mt-5 btn btn-primary gap-2 ${isSubmitting && "loading"}`}>
-                            <CartOutline color="#ffffff" />
+                            <IoCartOutline color="#ffffff" />
                             Buy Now
                           </button>
 
