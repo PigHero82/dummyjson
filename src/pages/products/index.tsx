@@ -16,8 +16,10 @@ import { Layout as ProductLayout } from '@/components/products'
 // Form
 import { Field, Form, Formik } from 'formik'
 
+// Icon
+import { IoArrowForwardOutline, IoBagRemoveOutline, IoCheckmarkOutline, IoPencilOutline, IoTrashBinOutline } from 'react-icons/io5'
+
 // Third-Party Library
-import { ArrowForwardOutline, BagRemoveOutline, CheckmarkOutline, PencilOutline, TrashBinOutline } from 'react-ionicons'
 import { motion } from "framer-motion"
 
 // Utility
@@ -83,7 +85,7 @@ export default function Product() {
               })
             }}
           >
-            {searchQuery.category === val && <CheckmarkOutline color="#FFFFFF" />} {val}
+            {searchQuery.category === val && <IoCheckmarkOutline color="#FFFFFF" />} {val}
           </button>
         ))}
       </div>
@@ -120,7 +122,7 @@ export default function Product() {
         {product?.products.length === 0 ? (
           <div className='my-10 text-center'>
             <div className='flex justify-center'>
-              <BagRemoveOutline width="100px" height="100px" />
+              <IoBagRemoveOutline width="100px" height="100px" />
             </div>
 
             <div className='text-2xl font-bold'>No Products Available</div>
@@ -143,7 +145,7 @@ export default function Product() {
                         <button type="button" title="Edit" className="group btn btn-sm btn-square btn-warning focus:loading">
                           <Link href={`/products/edit/${val.id}`}>
                             <div className='group-focus:hidden'>
-                              <PencilOutline />
+                              <IoPencilOutline />
                             </div>
                           </Link>
                         </button>
@@ -189,7 +191,7 @@ export default function Product() {
                           }}
                         >
                           <div className='group-focus:hidden'>
-                            <TrashBinOutline />
+                            <IoTrashBinOutline />
                           </div>
                         </button>
                       </div>
@@ -198,7 +200,7 @@ export default function Product() {
                     <div className='group-hover:transition-all invisible group-hover:visible absolute bottom-0 w-full p-3'>
                       <Link key={index} href={`/products/detail/${val.id}`}>
                         <button type='button' className="w-full btn btn-light dark:btn-dark gap-2 focus:loading">
-                          Show Detail <ArrowForwardOutline color='#00000' />
+                          Show Detail <IoArrowForwardOutline color='#00000' />
                         </button>
                       </Link>
                     </div>
